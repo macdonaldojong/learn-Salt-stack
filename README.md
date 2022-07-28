@@ -104,10 +104,13 @@ sudo su testuser1     ........ (loggin to user)
 
 # Delete user
 sudo salt '*' user.delete testuser1 remove=true force=true
-sudo salt 'master' user.delete remove=true force=true  .....(remove users from master)
+sudo salt 'minion1' user.delete testuser1 remove=true force=true  .....(remove users from master)
+ 
+# verify user again
+sudo salt '*' cmd.run 'cat /etc/passwd'  ........(check users)
 ```
 
-## Create configuration Environment for Salt state
+## Create Environment for the Salt-state configuration
 
 ```
 whereis salt
@@ -126,8 +129,8 @@ vi roots.conf
 #--------------------------------
 sudo mkdir -p /srv/salt/base
 
- # Now type to see environment configuration
-salt
+# Now type to see environment configuration
+salt & press the [Tab button]
 ```
 
 ## Create Top sls File for Salt state
