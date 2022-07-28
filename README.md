@@ -103,7 +103,7 @@ sudo salt '*' user.add 'testuser1' ..............(add users)
 sudo su testuser1     ........ (loggin to user)
 
 # Delete user
-sudo salt '*' user.delete remove=true force=true
+sudo salt '*' user.delete testuser1 remove=true force=true
 sudo salt 'master' user.delete remove=true force=true  .....(remove users from master)
 ```
 
