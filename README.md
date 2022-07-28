@@ -81,9 +81,9 @@ sudo vi minion  =>  { id: myminion  &  master: localhost }
 #### N01: View home directory in salt
 
 ```
-* sudo salt '*' cmd.run 'ls -lah /home'  (where, '*' equals for all, & could be specified for a given directory)
-* sudo salt 'minion1' cmd.run 'ls -lah /home'
-* sudo salt 'master' cmd.run 'ls -lah /home'
+sudo salt '*' cmd.run 'ls -lah /home'  (where, '*' equals for all, & could be specified for a given directory)
+sudo salt 'minion1' cmd.run 'ls -lah /home'
+sudo salt 'master' cmd.run 'ls -lah /home'
 ```
  
 ![image](https://user-images.githubusercontent.com/58276505/173200830-12fe93d0-a9f7-4a67-9333-f304b511b278.png)
