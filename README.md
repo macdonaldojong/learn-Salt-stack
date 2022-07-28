@@ -56,47 +56,42 @@ sudo vi minion  =>  { id: myminion  &  master: localhost }
 
 ### For an external Minion to connect to the master in a different instance:
 
-#### Create new linux-ec2-instance(Minion) and install SaltStack like in step-1
-#### Edit connetion between externel minion to master: uncomment & give-names to {id},  {master}
+#### Create new linux-ec2-instance(Minion) and install SaltStack
 
-* sudo vi minion  =>  {id: <anyname_minion1> & master:<Private-ip-address-master>}
-* sudo systemctl start salt-minion
-* sudo systemctl start salt-master
-* sudo systemctl enable salt-master.service
+* curl -L https://bootstrap.saltstack.com -o install_salt.sh
+* sudo sh install_salt.sh ------ omit {-M -P}
+
+* sudo vi minion  => uncomment and add {id: <minion1>,  master:<Private-ip-address-master>}
+* sudo systemctl start salt-minion  .... Remember: we didn't install master by ommiting {-M -P}
 * sudo systemctl enable salt-minion.service
 
-#### Repeat Step-2:
-* To configure & enable connection between ext-salt-minion1 to salt-master by adding the new key-ID parameter**
-* sudo salt-key -a minion1 -y
+#### Test connection of masters to minion by connect directly on aws master-instance
+
+* sudo salt-key
+* sudo salt-key -a minion1 -y   to add minion1
 * sudo salt-key
 
-#### Test the connection 
+#### Test the connection between salt-masters - salt-minion instance
 * sudo salt '*' test.ping
-
-#### Now to check directory
-* sudo slat '
-
+ 
 ![image](https://user-images.githubusercontent.com/58276505/173196655-f33cd7c8-5aef-4c07-bfc5-c7d5d20687ab.png)
 
-## Executing commands in salt  (More executatble command on salt official documentation)
-* https://docs.saltproject.io/en/getstarted/
-* https://docs.saltproject.io/en/getstarted/overview.html
-* https://docs.saltproject.io/en/latest/contents.html
- 
 ## Manipulations in saltstacks
 
-#### 1: View home directory in salt
+#### N01: View home directory in salt
 
+```
 * sudo salt '*' cmd.run 'ls -lah /home'  (where, '*' equals for all, & could be specified for a given directory)
 * sudo salt 'minion1' cmd.run 'ls -lah /home'
 * sudo salt 'master' cmd.run 'ls -lah /home'
-
+```
+ 
 ![image](https://user-images.githubusercontent.com/58276505/173200830-12fe93d0-a9f7-4a67-9333-f304b511b278.png)
 
-#### 2: Look at system up time
+#### N02: Look at system up time
 * sudo salt '*' cmd.run 'uptime'  (Systems time)
 
-#### 3: Create and Destroy Users in salt Minion or Master
+#### N03: Create and Destroy Users in salt Minion or Master
 
 ```
 # For user:
@@ -144,3 +139,11 @@ sudo vi top.sls
 'my*': # All minion with a minion_id that begins with 'my'
   - apache # Apply the state file named 'apache.sls'
 ```
+
+ ## Executing commands in salt  (More executatble command on salt official documentation)
+* https://docs.saltproject.io/en/getstarted/
+* https://docs.saltproject.io/en/getstarted/overview.html
+* https://docs.saltproject.io/en/latest/contents.html
+* video link: https://www.youtube.com/watch?v=orXTWmFP1WU&t=2168s
+ 
+ 
